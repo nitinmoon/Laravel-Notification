@@ -20,4 +20,7 @@ Route::post('/check-login', [LoginController::class, 'checkLogin'])->name('check
 |--------------------------------------------------------------------------
 |
 */
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+});
