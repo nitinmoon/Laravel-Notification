@@ -97,9 +97,8 @@
                                     <div class="avatar-lg"><img src="{{ asset('assets/img/default_profile.jpg') }}"
                                             alt="image profile" class="avatar-img rounded"></div>
                                     <div class="u-text">
-                                        <h4>Hizrian</h4>
-                                        <p class="text-muted">hello@example.com</p><a href="profile.html"
-                                            class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                        <h4>{{ auth()->user()->name }}</h4>
+                                        <p class="text-muted">{{ auth()->user()->role->name }}</p>
                                     </div>
                                 </div>
                             </li>

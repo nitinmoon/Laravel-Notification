@@ -14,4 +14,6 @@ class NotificationUser extends Model
         'user_id',
         'is_read'
     ];
+
+    
 }
