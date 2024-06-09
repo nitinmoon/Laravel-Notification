@@ -20,6 +20,7 @@
 
 <body>
 	<div class="wrapper">
+		<div id="preloader"></div>
 		<!-- Header -->
 		@include('layouts.header')
 		<!-- End Header -->

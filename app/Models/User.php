@@ -116,7 +116,7 @@ class User extends Authenticatable
 
     /**
      * ******************************
-     * get role user listing
+     * get user listing
      * ******************************
      */
     public static function getAllUsers()
@@ -128,5 +128,31 @@ class User extends Authenticatable
             ]
         );
         return $users->orderBy('name', 'asc')->get();
+    }
+
+    /**
+     * ******************************
+     * get user details
+     * ******************************
+     */
+    public static function getUserDetails($userId)
+    {
+       return User::find($userId);
+    }
+    
+    /**
+     * ******************************
+     * Method used to update user
+     * ******************************
+     */
+    public static function updateUser($data, $userId)
+    {
+        return User::where('id', $userId)->update(
+            [
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'status' => isset($data['status']) ? 'On' : 'Off'
+            ]
+        );
     }
 }

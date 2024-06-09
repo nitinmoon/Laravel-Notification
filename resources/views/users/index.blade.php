@@ -36,7 +36,7 @@
                         </div>
                     
                     <div class="card-body">
-                        <input type="hidden" id="userRouteURL" value="{{ route('users.index') }}" />
+                        <input type="hidden" id="userRouteURL" value="{{ route('users.list') }}" />
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped users-table table-width-100">
                                 <thead>
@@ -46,6 +46,8 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th title="Unread Notifications Count">Unread <i class="fa fa-bell"></i></th>
+                                        <th>Is Notifications</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,6 +61,8 @@
         </div>
     </div>
 </div>
+@include('users.user-modal')
+ 
 @endsection
 @section('script')
 <script src="{{ asset('assets/js/custom-js/user.js') }}"></script>

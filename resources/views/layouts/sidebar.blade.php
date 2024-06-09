@@ -23,12 +23,14 @@
 						<p>Dashboard</p>
 					</a>
 				</li>
-				<li class="nav-item {{ Request::routeIs('users.index') ? 'active' : '' }}">
-					<a href="{{ route('users.index') }}">
-						<i class="fas fa-user"></i>
-						<p>Users</p>
-					</a>
-				</li>
+				@if (auth()->user()->role_id == '1') {
+					<li class="nav-item {{ Request::routeIs('users.list') ? 'active' : '' }}">
+						<a href="{{ route('users.list') }}">
+							<i class="fas fa-user"></i>
+							<p>Users</p>
+						</a>
+					</li>
+				@endif
 			</ul>
 		</div>
 	</div>
