@@ -1,0 +1,134 @@
+Author: nitin <nitin.moon@gmail.com>
+Date:   Mon Jun 10 15:00:23 2024 +0530
+
+    user notification page with unread count and mark as read functionality
+
+commit 1f4c32fc47315c9396be524ab7a9fb1e1de9b349
+Author: nitin <nitin.moon@gmail.com>
+Date:   Mon Jun 10 10:31:02 2024 +0530
+
+    notification listing and add functionality
+
+commit 40ed4afcd0dc62429404a785410dbf116fc74ba0
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 22:52:25 2024 +0530
+
+    Update user functionality
+
+commit bb4ba6507f767f2c838e404b21e91afa56a4d1f3
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 19:30:10 2024 +0530
+
+    show users listing with datatables
+:
+commit ac58238a387ccf1bf27f835912274fcf5416dc62 (HEAD -> dev, origin/dev)
+Author: nitin <nitin.moon@gmail.com>
+Date:   Mon Jun 10 15:00:23 2024 +0530
+
+    user notification page with unread count and mark as read functionality
+
+commit 1f4c32fc47315c9396be524ab7a9fb1e1de9b349
+Author: nitin <nitin.moon@gmail.com>
+Date:   Mon Jun 10 10:31:02 2024 +0530
+
+    notification listing and add functionality
+
+commit 40ed4afcd0dc62429404a785410dbf116fc74ba0
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 22:52:25 2024 +0530
+
+    Update user functionality
+
+commit bb4ba6507f767f2c838e404b21e91afa56a4d1f3
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 19:30:10 2024 +0530
+
+    show users listing with datatables
+:
+commit ac58238a387ccf1bf27f835912274fcf5416dc62 (HEAD -> dev, origin/dev)
+Author: nitin <nitin.moon@gmail.com>
+Date:   Mon Jun 10 15:00:23 2024 +0530
+
+    user notification page with unread count and mark as read functionality
+
+commit 1f4c32fc47315c9396be524ab7a9fb1e1de9b349
+Author: nitin <nitin.moon@gmail.com>
+Date:   Mon Jun 10 10:31:02 2024 +0530
+
+    notification listing and add functionality
+
+commit 40ed4afcd0dc62429404a785410dbf116fc74ba0
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 22:52:25 2024 +0530
+
+    Update user functionality
+
+commit bb4ba6507f767f2c838e404b21e91afa56a4d1f3
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 19:30:10 2024 +0530
+
+    show users listing with datatables
+
+commit 376d71e1ceffa8a4c384189a6fc0fdfb837678a8
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 16:47:08 2024 +0530
+
+    added migrations, model, seeder, factory for users and login functionality for admin/user
+
+commit 675ec72252e50a55a125d211d64b8b63fe4cc40e
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 14:39:28 2024 +0530
+
+    Admin theme integration, login theme integration
+
+commit e97f71561c62b64a9e148167768ba395efd1a448
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sat Jun 8 08:32:10 2024 +0530
+
+    Initial commit
+(END)
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 19:30:10 2024 +0530
+
+    show users listing with datatables
+
+commit 376d71e1ceffa8a4c384189a6fc0fdfb837678a8
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 16:47:08 2024 +0530
+
+    added migrations, model, seeder, factory for users and login functionality for admin/user
+
+commit 675ec72252e50a55a125d211d64b8b63fe4cc40e
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 14:39:28 2024 +0530
+
+    Admin theme integration, login theme integration
+
+commit e97f71561c62b64a9e148167768ba395efd1a448
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sat Jun 8 08:32:10 2024 +0530
+
+    Initial commit
+(END)
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 19:30:10 2024 +0530
+
+    show users listing with datatables
+
+commit 376d71e1ceffa8a4c384189a6fc0fdfb837678a8
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 16:47:08 2024 +0530
+
+    added migrations, model, seeder, factory for users and login functionality for admin/user
+
+commit 675ec72252e50a55a125d211d64b8b63fe4cc40e
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sun Jun 9 14:39:28 2024 +0530
+
+    Admin theme integration, login theme integration
+
+commit e97f71561c62b64a9e148167768ba395efd1a448
+Author: nitin <nitin.moon@gmail.com>
+Date:   Sat Jun 8 08:32:10 2024 +0530
+
+    Initial commit
