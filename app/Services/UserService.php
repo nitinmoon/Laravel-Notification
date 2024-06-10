@@ -24,7 +24,7 @@ class UserService
             ->addColumn(
                 'name',
                 function ($row) {
-                    return $row->name;
+                    return '<a href="'.route('users.notifications', base64_encode($row->id)).'">'.$row->name.'</a>';
                 }
             )
             ->addColumn(
@@ -59,7 +59,7 @@ class UserService
                     return '<a class="btn btn-xs btn-round btn-info edit-user" title="Edit User" data-url="' . route('users.edit', $row->id) . '"><i class="fas fa-edit icon-size text-white"></i></a>';
                 }
             )
-            ->rawColumns(['unreadNotificationCount', 'notificationSwitch', 'action'])
+            ->rawColumns(['name', 'unreadNotificationCount', 'notificationSwitch', 'action'])
             ->make(true);
     }
 
@@ -91,5 +91,74 @@ class UserService
     public function updateUserDetails($data, $userId)
     {
         return User::updateUser($data, $userId);
+    }
+
+
+    /**
+     * ******************************************
+     * Method used to get users notification list
+     * ******************************************
+     */
+    public function userNotificationAjaxDatatable($request, $userId)
+    {
+        $data = User::getUserNotifications($request, $userId);
+         
+        return DataTables::of($data->notifications)
+            ->addIndexColumn()
+            ->addColumn(
+                'type',
+                function ($row) {
+                    return ucfirst($row->type);
+                }
+            )
+            ->addColumn(
+                'short_text',
+                function ($row) {
+                    return strip_tags($row->short_text);
+                }
+            )
+            ->addColumn(
+                'expiration',
+                function ($row) {
+                    return isset($row->expiration) ? $row->expiration : '-';
+                }
+            )
+            ->addColumn(
+                'is_read',
+                function ($row) {
+                    $color = ($row->pivot->is_read == 'Yes') ? 'success' : 'warning';
+                    return '<span class="badge badge-' . $color . '">' . $row->pivot->is_read . '</span>';
+                }
+            )
+            ->addColumn(
+                'read_at',
+                function ($row) {
+                    return isset($row->pivot->read_at) ? $row->pivot->read_at : '-';
+                }
+            )
+            ->addColumn(
+                'action',
+                function ($row) {
+                    $button = '';
+                    if($row->pivot->is_read == 'No') {
+                        $button .= '<a class="btn btn-xs btn-round btn-success text-white mark-read-notification" title="Mark As Read" data-url="'.route('notifications.read', $row->pivot->id) . '">Mark As Read</i></a>';
+                    }
+                    return $button;
+                }
+            )
+            ->rawColumns(['is_read', 'action'])
+            ->make(true);
+    }
+
+
+     /**
+     * **************************************************
+     * Method used to get unread notification count list
+     * **************************************************
+     */
+    public function getUnreadData($userId)
+    {
+       return User::getUnreadNotificationCount($userId);
+
     }
 }

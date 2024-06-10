@@ -65,8 +65,7 @@ class User extends Authenticatable
     public function notifications()
     {
         return $this->belongsToMany(Notification::class, 'notification_user')
-            ->withPivot('is_read');
-
+            ->withPivot('id', 'is_read', 'read_at');
     }
 
     /**
@@ -90,6 +89,16 @@ class User extends Authenticatable
     public function scopeInuser($query)
     {
         return $query->where('role_id', '=', UserRoleConstants::USER);
+    }
+
+    /**
+     * ************************************
+     * define condition only for On user
+     * ************************************
+     */
+    public function scopeInStatus($query)
+    {
+        return $query->where('status', '=', 'On');
     }
  
     /**
@@ -125,7 +134,7 @@ class User extends Authenticatable
      */
     public static function getAllUsers()
     {
-        $users = User::inUser()->select(
+        $users = User::inUser()->inStatus()->select(
             [
                 'id',
                 'name'
@@ -143,8 +152,7 @@ class User extends Authenticatable
     {
        return User::find($userId);
     }
-    
-    /**
+    /**   
      * ******************************
      * Method used to update user
      * ******************************
@@ -158,5 +166,42 @@ class User extends Authenticatable
                 'status' => isset($data['status']) ? 'On' : 'Off'
             ]
         );
+    }
+
+    /**
+     * ********************************
+     * get user notification data
+     * ********************************
+     */
+    public static function getUserNotifications($request, $userId)
+    {
+        $users = User::with(['notifications' => function ($query) use ($request) {
+            $query->where('expiration', '>', Carbon::now());
+            if ($request->type != '') {
+                $query->where('type', $request->type);
+            }
+            if ($request->is_read != '') {
+                $query->wherePivot('is_read', $request->is_read);
+            }
+            $query->orderBy('id', 'desc');
+        }])
+        ->find(base64_decode($userId));
+        return $users;
+    }
+
+    /**
+     * ********************************
+     * get user listing for datatables
+     * ********************************
+     */
+    public static function getUnreadNotificationCount($userId)
+    {
+        $users = User::with(['notifications' => function ($query) {
+            $query->where('expiration', '>', Carbon::now())
+            ->wherePivot('is_read', 'No')
+            ->orderBy('id', 'desc');
+        }])
+        ->find(base64_decode($userId));
+        return $users;
     }
 }

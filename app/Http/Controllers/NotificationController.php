@@ -80,4 +80,30 @@ class NotificationController extends Controller
     {
         return $request->only(['type', 'short_text', 'user_id', 'expiration']);
     }
+
+     /**
+     * ***********************************************
+     * Method used to mark as read notifications
+     * ***********************************************
+     */
+    public function read(string $id)
+    {   try {
+            $data = $this->notificationService->updateNotification($id);
+            $unreadNotification = $this->userService->getUnreadData(base64_encode($data->user_id));
+            return response()->json(
+                [
+                'status' => true,
+                'msg'  => 'Status Updated Successfully',
+                'unreadCount' => count($unreadNotification->notifications)
+                ]
+            );
+        } catch (\Exception $exception) {
+            return response()->json(
+                [
+                'status' => false,
+                'msg' => $exception->getMessage()
+                ]
+            );
+        }
+    }
 }

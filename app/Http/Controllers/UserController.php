@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\Constants\UserRoleConstants;
+use App\Models\Notification;
+use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 
@@ -82,4 +85,20 @@ class UserController extends Controller
     {
         return $request->only(['email', 'phone', 'status']);
     }
+
+    /**
+     * ***********************************************
+     * Method used to see users list
+     * ***********************************************
+     */
+    public function userNotification(Request $request, string $userId)
+    {       
+        if ($request->ajax()) {
+            return $this->userService->userNotificationAjaxDatatable($request, $userId);
+        }
+        $userData = $this->userService->userDetails(base64_decode($userId));
+        $unreadNotification = $this->userService->getUnreadData($userId);
+        return view('users.user-notification', compact('userId', 'userData', 'unreadNotification'));
+    }
+    
 }

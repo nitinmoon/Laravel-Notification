@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Notification;
+use App\Models\NotificationUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -51,31 +52,21 @@ class NotificationService
 
     /**
      * ******************************
-     * Method used to get users list
-     * ******************************
-     */
-    public function getTypes()
-    {
-        return Notification::getTypes('roles', 'name');
-    }
-
-    /**
-     * ******************************
-     * Method used to get users list
-     * ******************************
-     */
-    public function userDetails($userId)
-    {
-        return User::getUserDetails($userId);
-    }
-
-    /**
-     * ******************************
      * Method used to update user 
      * ******************************
      */
     public function saveNotification($data)
     {
         return Notification::saveNotification($data);
+    }
+
+    /**
+     * ******************************************
+     * Method used to update notification as read 
+     * ******************************************
+     */
+    public function updateNotification($id)
+    {
+        return Notification::updateNotification($id);
     }
 }

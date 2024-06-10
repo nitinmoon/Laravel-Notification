@@ -17,27 +17,25 @@
 				</div>
 			</div>
 			<ul class="nav nav-primary">
-				<li class="nav-item {{ Request::routeIs('dashboard') ? 'active' : '' }}">
+			 	<li class="nav-item {{ Request::routeIs('dashboard') ? 'active' : '' }}">
 					<a href="{{ route('dashboard') }}">
 						<i class="fas fa-home"></i>
 						<p>Dashboard</p>
 					</a>
 				</li>
-				@if (auth()->user()->role_id == '1') {
-					<li class="nav-item {{ Request::routeIs('users.list') ? 'active' : '' }}">
-						<a href="{{ route('users.list') }}">
-							<i class="fas fa-user"></i>
-							<p>Users</p>
-						</a>
-					</li>
-				@endif
+				<li class="nav-item {{ Request::routeIs('users.list') ? 'active' : '' }}">
+					<a href="{{ route('users.list') }}">
+						<i class="fas fa-user"></i>
+						<p>Users</p>
+					</a>
+				</li>
 				<li class="nav-item {{ Request::routeIs('notifications.list') ? 'active' : '' }}">
 					<a href="{{ route('notifications.list') }}">
 						<i class="fas fa-bell"></i>
 						<p>Notifications</p>
 					</a>
 				</li>
-			</ul>
+		 	</ul>
 		</div>
 	</div>
 </div>

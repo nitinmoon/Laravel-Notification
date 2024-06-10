@@ -16,15 +16,22 @@ class Notification extends Model
         'short_text',
         'expiration'
     ];
-
-    // Define the many-to-many relationship with users
+ 
+    /**
+     * ***********************************************
+     * Define the many-to-many relationship with users
+     * ***********************************************
+     */
     public function users()
     {
         return $this->belongsToMany(User::class, 'notification_user');
     }
  
-    // Scope to filter out expired notifications
-
+    /**
+     * *****************************************
+     * Scope to filter out expired notifications
+     * *****************************************
+     */
     public function scopeNotExpired($query)
     {
         return $query->where('expiration', '>', Carbon::now());
@@ -69,12 +76,27 @@ class Notification extends Model
                 ]);
         $insertedId = $model->id;
         if ($data['user_id'] == 'all') {
-                $userId = User::inUser()->pluck('id');
+                $userId = User::inUser()->inStatus()->pluck('id');
         } else {
                $userId = $data['user_id'];
         }
         $model->users()->attach($userId);
         return $insertedId;
     }
-      
+     
+    /**
+     * ******************************
+     * Method used to update notification
+     * ******************************
+     */
+    public static function updateNotification($id)
+    {
+        NotificationUser::where('id', $id)->update(
+            [
+                'read_at' => date('Y-m-d H:i:s'),
+                'is_read' => 'Yes',
+            ]
+        );
+        return NotificationUser::findOrFail($id);
+    }
 }

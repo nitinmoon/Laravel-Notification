@@ -25,7 +25,7 @@ class NotificationRequest extends FormRequest
         $user = User::find($this->userId);
         return [
             'type' => 'required',
-            'short_text' => 'required|alpha_num|max:500',
+            'short_text' => 'required|max:500',
             'user_id' => 'required',
             'expiration' => 'required'
         ];
