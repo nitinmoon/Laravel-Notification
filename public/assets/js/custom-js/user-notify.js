@@ -14,7 +14,7 @@ $(function () {
         ajax: {
             url: $("#NotifyRouteURL").val(),
             beforeSend: function () {
-                $('#preloader').show();
+               // $('#preloader').show();
             },
             data: function (d) {
                 d.type = $('#type').val();
@@ -76,4 +76,28 @@ $(function () {
             }
         });
     });
+
+    // Define the function you want to run every 30 seconds
+    function getLatestUnreadCount() {
+        $.ajax({
+            url: $("#LatestUnreadCountRouteURL").val(),
+            dataType: 'json',
+            success: function(res) {
+                if (res.status == true) {
+                    $(".common-count").html(res.unreadCount);
+                    $('.notify-table').DataTable().ajax.reload();
+                } 
+            },
+            error:function(request, status, error) {
+                console.log("ajax call went wrong:" + request.responseText);
+            }
+        });
+    }
+
+    // Set the interval to 30 seconds (30000 milliseconds)
+    setInterval(getLatestUnreadCount, 3000);
+
+   
 });
+
+ 

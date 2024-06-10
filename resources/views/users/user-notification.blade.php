@@ -44,6 +44,7 @@
                     
                     <div class="card-body">
                     <input type="hidden" id="NotifyRouteURL" value="{{ route('users.notifications', $userId) }}" />
+                    <input type="hidden" id="LatestUnreadCountRouteURL" value="{{ route('notifications.getLatestUnreadCount',  base64_decode($userId)) }}" />
                      
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped notify-table table-width-100">

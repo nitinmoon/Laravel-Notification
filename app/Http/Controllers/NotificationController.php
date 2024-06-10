@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\NotificationRequest;
+use App\Models\Constants\UserRoleConstants;
 use Illuminate\Http\Request;
 use App\Services\NotificationService;
 use App\Services\UserService;
@@ -27,6 +28,10 @@ class NotificationController extends Controller
      */
     public function index(Request $request)
     {
+        if (auth()->user()->role_id == UserRoleConstants::USER) {
+           
+            return back()->with('error', 'You are not authorized to view this page!');;
+        }
         if ($request->ajax()) {
             return $this->notificationService->notificationAjaxDatatable($request);
         }
@@ -81,7 +86,7 @@ class NotificationController extends Controller
         return $request->only(['type', 'short_text', 'user_id', 'expiration']);
     }
 
-     /**
+    /**
      * ***********************************************
      * Method used to mark as read notifications
      * ***********************************************
@@ -94,6 +99,30 @@ class NotificationController extends Controller
                 [
                 'status' => true,
                 'msg'  => 'Status Updated Successfully',
+                'unreadCount' => count($unreadNotification->notifications)
+                ]
+            );
+        } catch (\Exception $exception) {
+            return response()->json(
+                [
+                'status' => false,
+                'msg' => $exception->getMessage()
+                ]
+            );
+        }
+    }
+
+    /**
+     * ***********************************************
+     * Method used to mark as read notifications
+     * ***********************************************
+     */
+    public function getLatestUnreadCount(string $userId)
+    {   try {
+            $unreadNotification = $this->userService->getUnreadData(base64_encode($userId));
+            return response()->json(
+                [
+                'status' => true,
                 'unreadCount' => count($unreadNotification->notifications)
                 ]
             );

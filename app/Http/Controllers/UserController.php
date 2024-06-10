@@ -28,7 +28,6 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if (auth()->user()->role_id == UserRoleConstants::USER) {
-           
             return back()->with('error', 'You are not authorized to view this page!');;
         }
         if ($request->ajax()) {
@@ -92,7 +91,11 @@ class UserController extends Controller
      * ***********************************************
      */
     public function userNotification(Request $request, string $userId)
-    {       
+    {     
+        $userData = $this->userService->userDetails(base64_decode($userId));
+        if ($userData == '') {
+            return back()->with('error', 'This is not valid user!');;
+        }
         if ($request->ajax()) {
             return $this->userService->userNotificationAjaxDatatable($request, $userId);
         }

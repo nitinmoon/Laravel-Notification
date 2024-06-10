@@ -17,24 +17,33 @@
 				</div>
 			</div>
 			<ul class="nav nav-primary">
-			 	<li class="nav-item {{ Request::routeIs('dashboard') ? 'active' : '' }}">
-					<a href="{{ route('dashboard') }}">
-						<i class="fas fa-home"></i>
-						<p>Dashboard</p>
-					</a>
-				</li>
-				<li class="nav-item {{ Request::routeIs('users.list') ? 'active' : '' }}">
-					<a href="{{ route('users.list') }}">
-						<i class="fas fa-user"></i>
-						<p>Users</p>
-					</a>
-				</li>
-				<li class="nav-item {{ Request::routeIs('notifications.list') ? 'active' : '' }}">
-					<a href="{{ route('notifications.list') }}">
-						<i class="fas fa-bell"></i>
-						<p>Notifications</p>
-					</a>
-				</li>
+				@if(auth()->user()->role->name == 'Admin')
+					<li class="nav-item {{ Request::routeIs('dashboard') ? 'active' : '' }}">
+						<a href="{{ route('dashboard') }}">
+							<i class="fas fa-home"></i>
+							<p>Dashboard</p>
+						</a>
+					</li>
+				 	<li class="nav-item {{ Request::routeIs('users.list') ? 'active' : '' }}">
+						<a href="{{ route('users.list') }}">
+							<i class="fas fa-user"></i>
+							<p>Users</p>
+						</a>
+					</li>
+					<li class="nav-item {{ Request::routeIs('notifications.list') ? 'active' : '' }}">
+						<a href="{{ route('notifications.list') }}">
+							<i class="fas fa-bell"></i>
+							<p>Notifications</p>
+						</a>
+					</li>
+				@else
+					<li class="nav-item {{ Request::routeIs('users.notifications') ? 'active' : '' }}">
+						<a href="{{ route('users.notifications', base64_encode(auth()->user()->id)) }}">
+							<i class="fas fa-bell"></i>
+							<p>My Notifications</p>
+						</a>
+					</li>
+				@endif
 		 	</ul>
 		</div>
 	</div>

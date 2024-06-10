@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/', [LoginController::class, 'index']);
 Route::post('/check-login', [LoginController::class, 'checkLogin'])->name('checkLogin');
 
 /*
@@ -33,4 +34,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/add', [NotificationController::class, 'add'])->name('notifications.add');
     Route::post('/save', [NotificationController::class, 'save'])->name('notifications.save');
     Route::get('/read/{pivot_id}', [NotificationController::class, 'read'])->name('notifications.read');
+    Route::get('/get-latest_unread-count/{userId}', [NotificationController::class, 'getLatestUnreadCount'])->name('notifications.getLatestUnreadCount');
 });

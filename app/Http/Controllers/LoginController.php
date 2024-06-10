@@ -45,7 +45,7 @@ class LoginController extends Controller
             return response()->json(
                 [
                 'status' => true,
-                'redirectRoute' => route('dashboard'),
+                'redirectRoute' => auth()->user()->role->name == 'Admin' ? route('dashboard') :route('users.notifications', base64_encode(auth()->user()->id)),
                 'msg' => 'Login successfully!'
                 ]
             );
