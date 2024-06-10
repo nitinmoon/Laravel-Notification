@@ -111,6 +111,10 @@ class User extends Authenticatable
         if ($request->userId != "") {
             $users->where('id', $request->userId);
         }
+        if ($request->status != "") {
+            $users->where('status', $request->status);
+        }
+        
         return $users->orderBy('id', 'desc')->get();
     }
 

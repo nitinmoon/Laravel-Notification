@@ -98,7 +98,7 @@
                                             alt="image profile" class="avatar-img rounded"></div>
                                     <div class="u-text">
                                         <h4>{{ auth()->user()->name }}</h4>
-                                        <p class="text-muted">{{ auth()->user()->role->name }}</p>
+                                        <p class="text-muted">({{ auth()->user()->role->name }})</p>
                                     </div>
                                 </div>
                             </li>

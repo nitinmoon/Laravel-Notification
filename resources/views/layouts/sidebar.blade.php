@@ -10,7 +10,7 @@
 					<a href="#collapseExample">
 						<span>
 							{{ auth()->user()->name }}
-							<span class="user-level">{{ auth()->user()->role->name }}</span>
+							<span class="user-level">({{ auth()->user()->role->name }})</span>
 						</span>
 					</a>
 					<div class="clearfix"></div>
@@ -31,6 +31,12 @@
 						</a>
 					</li>
 				@endif
+				<li class="nav-item {{ Request::routeIs('notifications.list') ? 'active' : '' }}">
+					<a href="{{ route('notifications.list') }}">
+						<i class="fas fa-bell"></i>
+						<p>Notifications</p>
+					</a>
+				</li>
 			</ul>
 		</div>
 	</div>

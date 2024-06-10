@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ['marketing', 'invoices', 'system']);
             $table->string('short_text', 500);
-            $table->timestamp('expiration');
+            $table->timestamp('expiration')->nullable();
             $table->timestamps();
         });
     }

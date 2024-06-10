@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('notification_id')->references('id')->on('notifications');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->enum('is_read', ['Yes','No'])->default('No');
-            $table->timestamps();
+            $table->dateTime('read_at')->nullable();
         });
     }
 

@@ -2,65 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Models\Constants\UserRoleConstants;
-use App\Models\User;
+use App\Http\Requests\NotificationRequest;
 use Illuminate\Http\Request;
+use App\Services\NotificationService;
 use App\Services\UserService;
 
-class UserController extends Controller
+class NotificationController extends Controller
 {
+    
+    private $notificationService;
     private $userService;
     public function __construct(
+        NotificationService $notificationService,
         UserService $userService
     ) {
+        $this->notificationService = $notificationService;
         $this->userService = $userService;
     }
 
     /**
      * ***********************************************
-     * Method used to see users list
+     * Method used to see notifications list
      * ***********************************************
      */
     public function index(Request $request)
     {
-        if (auth()->user()->role_id == UserRoleConstants::USER) {
-           
-            return back()->with('error', 'You are not authorized to view this page!');;
-        }
         if ($request->ajax()) {
-            return $this->userService->userAjaxDatatable($request);
+            return $this->notificationService->notificationAjaxDatatable($request);
         }
-        $userList = $this->userService->allUsers();
-        return view('users.index', compact('userList'));
+        return view('notifications.index');
     }
 
     /**
      * ***********************************************
-     * Method used to open user edit modal
+     * Method used to open notification add modal
      * ***********************************************
      */
-    public function edit(string $userId)
+    public function add()
     {
-        $userData = $this->userService->userDetails($userId);
-        $html = view('users.edit', compact('userData'))->render();
+        $userList = $this->userService->allUsers();
+        $html = view('notifications.add', compact('userList'))->render();
         return response()->json(array('body' => $html));
     }
 
     /**
      * ***********************************************
-     * Method used to update the user details
+     * Method used to save the notification
      * ***********************************************
      */
-    public function update(UserRequest $request, string $id)
+    public function save(NotificationRequest $request)
     {
         try {
-            $inputArray = $this->validateUserRequest($request);
-            $this->userService->updateUserDetails($inputArray, $id);
+            $inputArray = $this->validateNotificationRequest($request);
+            $this->notificationService->saveNotification($inputArray);
             return response()->json(
                 [
                 'status' => true,
-                'msg'  => 'User Updated Successfully'
+                'msg'  => 'Notification Added Successfully'
                 ]
             );
         } catch (\Exception $exception) {
@@ -78,8 +76,8 @@ class UserController extends Controller
      * Method used to validate request
      * ***********************************************
      */
-    private function validateUserRequest(Request $request)
+    private function validateNotificationRequest(Request $request)
     {
-        return $request->only(['email', 'phone', 'status']);
+        return $request->only(['type', 'short_text', 'user_id', 'expiration']);
     }
 }

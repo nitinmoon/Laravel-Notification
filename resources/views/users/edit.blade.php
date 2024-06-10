@@ -12,20 +12,20 @@
             </div>
             <div class="col-md-12">
                 <div class="form-group">
-                    <label>Email</label>
+                    <label>Email  <span class="errro">*</span></label>
                     <div><input type="email" class="form-control" name="email"
                             value="{{ isset($userData->email) ? $userData->email : '' }}" placeholder="Enter Email" />
-                        <span id="email_error" class="error"></span>
+                        <span id="error_email" class="error"></span>
                     </div>
 
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
-                    <label>Phone</label>
+                    <label>Phone  <span class="errro">*</span></label>
                     <div><input type="text" class="form-control" name="phone"
                             value="{{ isset($userData->phone) ? $userData->phone : '' }}" placeholder="Enter Phone" />
-                        <span id="email_phone" class="error"></span>
+                        <span id="error__phone" class="error"></span>
                     </div>
                 </div>
             </div>
@@ -42,6 +42,7 @@
             <div class="col-md-12">
                 <hr>
                 <div class="form-group">
+                    <input type="hidden" name="userId" value="{{ $userData->id }}" />
                     <button type="submit" class="btn btn-primary">Update <i class="fas fa-arrow-alt-circle-right" aria-hidden="true"></i></button>
                 </div>
             </div>
@@ -116,11 +117,19 @@
                         $("#preloader").hide();
                     },
                     error: function (err) {
-                        $.notify({
-                            message: err
-                        }, {
-                            type: 'danger'
-                        });
+                        if (err.status == 422) {
+                        $errResponse = JSON.parse(err.responseText);
+                        $.each($errResponse.errors, function(key, value) {
+                            console.log(key + "----" + value)
+                            $("#error_" + key).html(value)
+                            $.notify({
+                                message: value
+                            }, {
+                                type: 'danger'
+                            });
+                        })
+
+                    }
                     }
                 });
             }

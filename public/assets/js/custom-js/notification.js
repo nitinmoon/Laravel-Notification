@@ -5,18 +5,17 @@ $.ajaxSetup({
 });
 
 $(function () {
-    var table = $('.users-table').DataTable({
+    var table = $('.notifications-table').DataTable({
         processing: true,
         serverSide: true,
         order: [[0, 'desc']],
         ajax: {
-            url: $("#userRouteURL").val(),
+            url: $("#notificationRouteURL").val(),
             beforeSend: function () {
                 $('#preloader').show();
             },
             data: function (d) {
-                d.userId = $('#userId').val();
-                d.status = $('#status').val();
+                d.type = $('#type').val();
             },
             complete: function () {
                 $('#preloader').hide();
@@ -24,37 +23,34 @@ $(function () {
         },
         columns: [
             { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-            { data: 'name', name: 'name', searchable: true },
-            { data: 'email', name: 'email', searchable: true },
-            { data: 'phone', name: 'phone', searchable: true },
-            { data: 'unreadNotificationCount', name: 'unreadNotificationCount', searchable: true },
-            { data: 'notificationSwitch', name: 'notificationSwitch', searchable: true },
-            { data: 'action', name: 'action', orderable: false, searchable: false }
+            { data: 'type', name: 'type', searchable: true },
+            { data: 'short_text', name: 'short_text', searchable: true },
+            { data: 'expiration', name: 'expiration', searchable: true },
+            { data: 'created_at', name: 'created_at', orderable: false, searchable: false }
         ]
     });
 
     $('.select2').select2();
 
     $("#reset").on("click", function () {
-        $("#userId").val('').trigger('change');
-        $("#status").val('').trigger('change');
-        $('.users-table').DataTable().ajax.reload();
+        $("#type").val('').trigger('change');
+        $('.notifications-table').DataTable().ajax.reload();
     });
 
-    $("#userId, #status").change(function () {
-        $('.users-table').DataTable().ajax.reload();
+    $("#type").change(function () {
+        $('.notifications-table').DataTable().ajax.reload();
     });
 
     //Edit user
-    $(document).on('click', '.edit-user', function(){
+    $(document).on('click', '.add-notification', function(){
         var url = $(this).data("url");
         $.ajax({
             url: url,
             dataType: 'json',
             success: function(res) {
                 var data = res.body;
-                $('#userModal').modal('show');
-                $('.modal-title').html('<i class="fas fa-edit" aria-hidden="true"></i> Edit User');
+                $('#notificationModal').modal('show');
+                $('.modal-title').html('<i class="fas fa-plus" aria-hidden="true"></i> Add Notification');
                 $('#modalBody').html(data);
             },
             error:function(request, status, error) {
